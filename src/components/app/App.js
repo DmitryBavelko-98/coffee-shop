@@ -28,7 +28,8 @@ class App extends Component {
       {id: 5, country: 'Brazil'},
       {id: 6, country: 'Brazil'},
     ],
-    showProduct: false
+    showProduct: false,
+    filter: 'all'
   }
 
   onMain = () => {
@@ -67,8 +68,26 @@ class App extends Component {
     })
   }
 
+  onFilter = (filter) => {
+    this.setState({filter});
+  }
+
+  filterCoffee = (items, filter) => {
+    switch (filter) {
+      case 'Brazil':
+        return items.filter(item => item.country === 'Brazil');
+      case 'Kenya':
+        return items.filter(item => item.country === 'Kenya');
+      case 'Columbia':
+        return items.filter(item => item.country === 'Columbia');
+      default: 
+        return items;
+    }
+  }
+
   render() {
-    const {main, catalog, pleasure, data, showProduct} = this.state;
+    const {main, catalog, pleasure, data, showProduct, filter} = this.state;
+    const visibleData = this.filterCoffee(data, filter);
 
     const content = main ? <>
         <MainIntro/>
@@ -79,14 +98,14 @@ class App extends Component {
     const products = catalog ? <>
         <CatalogIntro/>
         <CatalogInfo title='none' image={catalogImage}/>
-        <CatalogSearch/>
-        <CatalogList data={data} onProduct={this.onProduct}/>
+        <CatalogSearch onFilter={this.onFilter}/>
+        <CatalogList data={visibleData} onProduct={this.onProduct}/>
     </> : null;
 
     const pleas = pleasure ? <>
         <PleasureIntro/>
         <CatalogInfo title='block' image={pleasureImage}/>
-        <CatalogList data={data} onProduct={this.onProduct}/>
+        <CatalogList data={visibleData} onProduct={this.onProduct}/>
     </> : null;
 
     const product = showProduct ? <>
