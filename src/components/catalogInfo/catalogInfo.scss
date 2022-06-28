@@ -19,6 +19,12 @@
             background-color: #000;
         } 
     }
+    &__title {
+        text-align: center;
+        font-size: 1.7rem;
+        line-height: 1.4;
+        margin: 0 0 20px 0;
+    }
     &__img {
         display: block;
     }
