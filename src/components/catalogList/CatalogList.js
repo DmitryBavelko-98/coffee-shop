@@ -1,10 +1,9 @@
 import './catalogList.scss';
-import img from '../../resources/img/catalogList/catalog-img.svg'
 
 const CatalogList = ({data, onProduct}) => {
 
     const elements = data.map(item => {
-        const {id, country, title} = item;
+        const {id, country, title, price, img} = item;
         return (
             <a 
                 key={id}
@@ -14,7 +13,7 @@ const CatalogList = ({data, onProduct}) => {
                 <img src={img} alt="" className="catalog-list__img" />
                 <div className="catalog-list__title">{title}</div>
                 <div className="catalog-list__country">{country}</div>
-                <div className="catalog-list__price">6.99$</div>
+                <div className="catalog-list__price">{price}</div>
             </a>
         );
     })

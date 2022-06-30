@@ -11,11 +11,15 @@ import CatalogSearch from "../catalogSearch/CatalogSearch";
 import MainIntro from "../mainIntro/MainIntro";
 import OurBest from "../ourBest/OurBest";
 import PleasureIntro from "../pleasureIntro/PleasureIntro";
+import CatalogSearchPanel from "../catalogSearchPanel/CatalogSearchPanel";
 
 import catalogImage from "../../resources/img/catalogInfo/info-1.jpg"
 import pleasureImage from "../../resources/img/catalogInfo/info-2.jpg";
 import CatalogFilters from "../catalogFilters/CatalogFilters";
-import CatalogSearchPanel from "../catalogSearchPanel/CatalogSearchPanel";
+
+import bestOne from '../../resources/img/ourBest/1.svg';
+import bestTwo from '../../resources/img/ourBest/2.svg';
+import bestThree from '../../resources/img/ourBest/3.svg';
 
 class App extends Component {
   state = {
@@ -23,12 +27,12 @@ class App extends Component {
     catalog: false,
     pleasure: false,
     data: [
-      {id: 1, country: 'Brazil', title: 'AROMISTICO Coffee 1 kg'},
-      {id: 2, country: 'Kenya', title: 'Solimo Coffee Beans 2 kg'},
-      {id: 3, country: 'Columbia', title: 'Presto Coffee Beans 1 kg'},
-      {id: 4, country: 'Brazil', title: 'AROMISTICO Coffee 2 kg'},
-      {id: 5, country: 'Brazil', title: 'AROMISTICO Coffee 3 kg'},
-      {id: 6, country: 'Brazil', title: 'AROMISTICO Coffee 5 kg'},
+      {id: 1, country: 'Kenya', title: 'Solimo Coffee Beans 2 kg', price: '10.73$', img: bestOne},
+      {id: 2, country: 'Columbia', title: 'Presto Coffee Beans 1 kg', price: '15.99$', img: bestTwo},
+      {id: 3, country: 'Brazil', title: 'AROMISTICO Coffee 1 kg', price: '6.99$', img: bestThree},
+      {id: 4, country: 'Brazil', title: 'AROMISTICO Coffee 2 kg', price: '6.99$', img: bestOne},
+      {id: 5, country: 'Brazil', title: 'AROMISTICO Coffee 3 kg', price: '6.99$', img: bestOne},
+      {id: 6, country: 'Brazil', title: 'AROMISTICO Coffee 5 kg', price: '6.99$', img: bestOne},
     ],
     showProduct: false,
     filter: 'all',
@@ -109,7 +113,7 @@ class App extends Component {
     const content = main ? <>
         <MainIntro/>
         <AboutUs/>
-        <OurBest/>
+        <OurBest data={data.slice(0, 3)}/>
     </> : null;
 
     const products = catalog ? <>
