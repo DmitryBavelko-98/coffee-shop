@@ -14,6 +14,8 @@ import PleasureIntro from "../pleasureIntro/PleasureIntro";
 
 import catalogImage from "../../resources/img/catalogInfo/info-1.jpg"
 import pleasureImage from "../../resources/img/catalogInfo/info-2.jpg";
+import CatalogFilters from "../catalogFilters/CatalogFilters";
+import CatalogSearchPanel from "../catalogSearchPanel/CatalogSearchPanel";
 
 class App extends Component {
   state = {
@@ -21,15 +23,16 @@ class App extends Component {
     catalog: false,
     pleasure: false,
     data: [
-      {id: 1, country: 'Brazil'},
-      {id: 2, country: 'Kenya'},
-      {id: 3, country: 'Columbia'},
-      {id: 4, country: 'Brazil'},
-      {id: 5, country: 'Brazil'},
-      {id: 6, country: 'Brazil'},
+      {id: 1, country: 'Brazil', title: 'AROMISTICO Coffee 1 kg'},
+      {id: 2, country: 'Kenya', title: 'Solimo Coffee Beans 2 kg'},
+      {id: 3, country: 'Columbia', title: 'Presto Coffee Beans 1 kg'},
+      {id: 4, country: 'Brazil', title: 'AROMISTICO Coffee 2 kg'},
+      {id: 5, country: 'Brazil', title: 'AROMISTICO Coffee 3 kg'},
+      {id: 6, country: 'Brazil', title: 'AROMISTICO Coffee 5 kg'},
     ],
     showProduct: false,
-    filter: 'all'
+    filter: 'all',
+    term: ''
   }
 
   onMain = () => {
@@ -85,9 +88,23 @@ class App extends Component {
     }
   }
 
+  onUpdateSearch = (term) => {
+    this.setState({term})
+  }
+
+  searchCoffee = (items, term) => {
+    if (term.length === 0) {
+      return items;
+    }
+
+    return items.filter(item => {
+      return item.title.toLowerCase().includes(term);
+    })
+  }
+
   render() {
-    const {main, catalog, pleasure, data, showProduct, filter} = this.state;
-    const visibleData = this.filterCoffee(data, filter);
+    const {main, catalog, pleasure, data, showProduct, filter, term} = this.state;
+    const visibleData = this.searchCoffee(this.filterCoffee(data, filter), term);
 
     const content = main ? <>
         <MainIntro/>
@@ -98,7 +115,9 @@ class App extends Component {
     const products = catalog ? <>
         <CatalogIntro/>
         <CatalogInfo title='none' image={catalogImage}/>
-        <CatalogSearch onFilter={this.onFilter}/>
+        <CatalogSearch 
+          filters={<CatalogFilters onFilter={this.onFilter}/>}
+          panel={<CatalogSearchPanel onUpdateSearch={this.onUpdateSearch}/>}/>
         <CatalogList data={visibleData} onProduct={this.onProduct}/>
     </> : null;
 
