@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ea0ebf94.css",
+    "main.js": "/static/js/main.9ba482b5.js",
+    "static/media/best-bg.jpg": "/static/media/best-bg.01cfb75cfbea3e3ad741.jpg",
+    "static/media/Main-bg.jpg": "/static/media/Main-bg.41fc7a30d2ed0826ebd3.jpg",
+    "static/media/product-img.svg": "/static/media/product-img.ba630ceb0b51c3a55508ba94f66ce27e.svg",
+    "static/media/2.svg": "/static/media/2.64e083ada70fb7bfb9d8c18b253cbb72.svg",
+    "static/media/catalog-bg.jpg": "/static/media/catalog-bg.f68307398e073ab5fffa.jpg",
+    "static/media/3.svg": "/static/media/3.f570b11568e712c75c491a4f849202c3.svg",
+    "static/media/pleasure-bg.jpg": "/static/media/pleasure-bg.4dba4553cd50d8671b5d.jpg",
+    "static/media/1.svg": "/static/media/1.54bf00220b02339f5c39c645f58b8fb6.svg",
+    "static/media/info-1.jpg": "/static/media/info-1.00493d1e37ed610a650d.jpg",
+    "static/media/info-2.jpg": "/static/media/info-2.011ededc4b847df5bb8b.jpg",
+    "static/media/logo.svg": "/static/media/logo.5898834b7d92fbb7882a36b9836f0ccb.svg",
+    "static/media/Logo.svg": "/static/media/Logo.39d16553118e67db52e93d822782c391.svg",
+    "static/media/intro-logo.svg": "/static/media/intro-logo.d8ad06a77a7f633d0c2a9736d6fb4634.svg",
+    "static/media/about-logo.svg": "/static/media/about-logo.023b976cf584c92cb61afe5c82a0d35f.svg",
+    "index.html": "/index.html",
+    "main.ea0ebf94.css.map": "/static/css/main.ea0ebf94.css.map",
+    "main.9ba482b5.js.map": "/static/js/main.9ba482b5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ea0ebf94.css",
+    "static/js/main.9ba482b5.js"
+  ]
+}
