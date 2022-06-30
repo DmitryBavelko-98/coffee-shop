@@ -1,6 +1,6 @@
 import '../catalogSearch/catalogSearch.scss';
 
-const CatalogFilters = ({filter, onFilter}) => {
+const CatalogFilters = (props) => {
     const buttons = [
         {id: 'All', label: 'All'},
         {id: 'Brazil', label: 'Brazil'},
@@ -9,13 +9,14 @@ const CatalogFilters = ({filter, onFilter}) => {
     ];
 
     const filters = buttons.map(({id, label}) => {
-        const active = filter === id;
-        const style = active ? {backgroundColor: 'red'} : {};
+        const active = props.filter === id;
+        const style = active ? {backgroundColor: '#d69595'} : {};
         return (
             <button 
-                key={id} 
+                type="button"
                 style={style}
-                onClick={() => onFilter(id)}
+                key={id} 
+                onClick={() => props.onFilter(id)}
                 className="catalog-search__filter">{label}</button>
         );
     })
