@@ -2,6 +2,7 @@ import '../catalogSearch/catalogSearch.scss';
 
 const CatalogFilters = ({filter, onFilter}) => {
     const buttons = [
+        {id: 'All', label: 'All'},
         {id: 'Brazil', label: 'Brazil'},
         {id: 'Kenya', label: 'Kenya'},
         {id: 'Columbia', label: 'Columbia'}
