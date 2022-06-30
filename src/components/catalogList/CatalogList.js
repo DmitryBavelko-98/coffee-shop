@@ -4,7 +4,7 @@ import img from '../../resources/img/catalogList/catalog-img.svg'
 const CatalogList = ({data, onProduct}) => {
 
     const elements = data.map(item => {
-        const {id, country} = item;
+        const {id, country, title} = item;
         return (
             <a 
                 key={id}
@@ -12,7 +12,7 @@ const CatalogList = ({data, onProduct}) => {
                 onClick={onProduct}
                 className="catalog-list__item">
                 <img src={img} alt="" className="catalog-list__img" />
-                <div className="catalog-list__title">AROMISTICO Coffee 1 kg</div>
+                <div className="catalog-list__title">{title}</div>
                 <div className="catalog-list__country">{country}</div>
                 <div className="catalog-list__price">6.99$</div>
             </a>
