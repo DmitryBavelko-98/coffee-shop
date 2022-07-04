@@ -8,7 +8,7 @@ const CatalogList = ({data, onProduct}) => {
             <a 
                 key={id}
                 href="#"
-                onClick={onProduct}
+                onClick={() => onProduct(id)}
                 className="catalog-list__item">
                 <img src={img} alt="" className="catalog-list__img" />
                 <div className="catalog-list__title">{title}</div>

@@ -36,7 +36,8 @@ class App extends Component {
     ],
     showProduct: false,
     filter: 'All',
-    term: ''
+    term: '',
+    current: null
   }
 
   onMain = () => {
@@ -66,13 +67,18 @@ class App extends Component {
     })
   }
 
-  onProduct = () => {
+  onProduct = (id) => {
     this.setState({
       main: false,
       catalog: false,
       pleasure: false,
-      showProduct: true
+      showProduct: true,
+      current: id
     })
+  }
+
+  setCurrent = (current) => {
+    this.setState({current});
   }
 
   onFilter = (filter) => {
@@ -107,8 +113,10 @@ class App extends Component {
   }
 
   render() {
-    const {main, catalog, pleasure, data, showProduct, filter, term} = this.state;
+    const {main, catalog, pleasure, data, showProduct, filter, term, current} = this.state;
     const visibleData = this.searchCoffee(this.filterCoffee(data, filter), term);
+    const product = visibleData[current - 1];
+    console.log(product)
 
     const content = main ? <>
         <MainIntro/>
@@ -131,9 +139,9 @@ class App extends Component {
         <CatalogList data={visibleData} onProduct={this.onProduct}/>
     </> : null;
 
-    const product = showProduct ? <>
+    const productPage = showProduct ? <>
         <CatalogIntro/>
-        <CatalogProduct/>
+        <CatalogProduct data={product}/>
     </>  : null;
 
     return (
@@ -142,7 +150,7 @@ class App extends Component {
         {content}
         {products}
         {pleas}
-        {product}
+        {productPage}
         <AppFooter onMain={this.onMain} onCatalog={this.onCatalog} onPleasure={this.onPleasure}/>
       </div>
     );
