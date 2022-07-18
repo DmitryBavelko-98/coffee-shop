@@ -1,29 +1,25 @@
-import {Component } from 'react';
+import {useState} from 'react';
 import '../catalogSearch/catalogSearch.scss';
 
-class CatalogSearchPanel extends Component {
-    state = {
-        term: ''
-    }
+const CatalogSearchPanel = (props) => {
+    const [term, setTerm] = useState('');
 
-    onSearch = (e) => {
+    function onSearch(e) {
         const term = e.target.value;
-        this.setState({term});
-        this.props.onUpdateSearch(term);
+        setTerm(term);
+        props.onUpdateSearch(term);
     }
 
-    render() {
-        return (
-            <>
-            <label htmlFor="catalog-search__input">Looking for</label>
-            <input 
-                onChange={this.onSearch}
-                id='catalog-search__input' 
-                className="catalog-search__input" type="text" 
-                placeholder='start typing here...'/>
-            </>
-        )
-    }
+    return (
+        <>
+        <label htmlFor="catalog-search__input">Looking for</label>
+        <input 
+            onChange={onSearch}
+            id='catalog-search__input' 
+            className="catalog-search__input" type="text" 
+            placeholder='start typing here...'/>
+        </>
+    )
 }
 
 export default CatalogSearchPanel;

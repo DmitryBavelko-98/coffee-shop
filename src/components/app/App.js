@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 
 import AboutUs from "../aboutUs/AboutUs";
 import AppFooter from "../appFooter/AppFooter";
@@ -21,71 +21,60 @@ import bestOne from '../../resources/img/ourBest/1.svg';
 import bestTwo from '../../resources/img/ourBest/2.svg';
 import bestThree from '../../resources/img/ourBest/3.svg';
 
-class App extends Component {
-  state = {
-    main: true,
-    catalog: false,
-    pleasure: false,
-    data: [
-      {id: 1, country: 'Kenya', title: 'Solimo Coffee Beans 2 kg', price: '10.73$', img: bestOne},
-      {id: 2, country: 'Columbia', title: 'Presto Coffee Beans 1 kg', price: '15.99$', img: bestTwo},
-      {id: 3, country: 'Brazil', title: 'AROMISTICO Coffee 1 kg', price: '6.99$', img: bestThree},
-      {id: 4, country: 'Brazil', title: 'AROMISTICO Coffee 2 kg', price: '6.99$', img: bestThree},
-      {id: 5, country: 'Brazil', title: 'AROMISTICO Coffee 3 kg', price: '6.99$', img: bestThree},
-      {id: 6, country: 'Brazil', title: 'AROMISTICO Coffee 5 kg', price: '6.99$', img: bestThree},
-    ],
-    showProduct: false,
-    filter: 'All',
-    term: '',
-    current: null
+const App = () => {
+  const goods = [
+    {id: 1, country: 'Kenya', title: 'Solimo Coffee Beans 2 kg', price: '10.73$', img: bestOne},
+    {id: 2, country: 'Columbia', title: 'Presto Coffee Beans 1 kg', price: '15.99$', img: bestTwo},
+    {id: 3, country: 'Brazil', title: 'AROMISTICO Coffee 1 kg', price: '6.99$', img: bestThree},
+    {id: 4, country: 'Brazil', title: 'AROMISTICO Coffee 2 kg', price: '6.99$', img: bestThree},
+    {id: 5, country: 'Brazil', title: 'AROMISTICO Coffee 3 kg', price: '6.99$', img: bestThree},
+    {id: 6, country: 'Brazil', title: 'AROMISTICO Coffee 5 kg', price: '6.99$', img: bestThree},
+  ]
+
+  const [main, setMain] = useState(true);
+  const [catalog, setCatalog] = useState(false);
+  const [pleasure, setPleasure] = useState(false);
+  const [data, setData] = useState(goods);
+  const [showProduct, setShowProduct] = useState(false);
+  const [filter, setFilter] = useState('All');
+  const [term, setTerm] = useState('');
+  const [current, setCurrent] = useState(null);
+
+
+  function onMain() {
+    setMain(true);
+    setCatalog(false);
+    setPleasure(false);
+    setShowProduct(false);
   }
 
-  onMain = () => {
-    this.setState({
-      main: true,
-      catalog: false,
-      pleasure: false,
-      showProduct: false
-    })
+  function onCatalog() {
+    setMain(false);
+    setCatalog(true);
+    setPleasure(false);
+    setShowProduct(false);
   }
 
-  onCatalog = () => {
-    this.setState({
-      main: false,
-      catalog: true,
-      pleasure: false,
-      showProduct: false
-    })
+  function onPleasure() {
+    setMain(false);
+    setCatalog(false);
+    setPleasure(true);
+    setShowProduct(false);
   }
 
-  onPleasure = () => {
-    this.setState({
-      main: false,
-      catalog: false,
-      pleasure: true,
-      showProduct: false
-    })
+  function onProduct(id) {
+    setMain(false);
+    setCatalog(false);
+    setPleasure(false);
+    setShowProduct(true);
+    setCurrent(id);
   }
 
-  onProduct = (id) => {
-    this.setState({
-      main: false,
-      catalog: false,
-      pleasure: false,
-      showProduct: true,
-      current: id
-    })
+  function onFilter(filter) {
+    setFilter(filter)
   }
 
-  setCurrent = (current) => {
-    this.setState({current});
-  }
-
-  onFilter = (filter) => {
-    this.setState({filter});
-  }
-
-  filterCoffee = (items, filter) => {
+  function filterCoffee(items, filter) {
     switch (filter) {
       case 'Brazil':
         return items.filter(item => item.country === 'Brazil');
@@ -98,11 +87,11 @@ class App extends Component {
     }
   }
 
-  onUpdateSearch = (term) => {
-    this.setState({term})
+  function onUpdateSearch (term) {
+    setTerm(term)
   }
 
-  searchCoffee = (items, term) => {
+  function searchCoffee (items, term) {
     if (term.length === 0) {
       return items;
     }
@@ -112,49 +101,45 @@ class App extends Component {
     })
   }
 
-  render() {
-    const {main, catalog, pleasure, data, showProduct, filter, term, current} = this.state;
-    const visibleData = this.searchCoffee(this.filterCoffee(data, filter), term);
-    const product = visibleData[current - 1];
-    console.log(product)
+  const visibleData = searchCoffee(filterCoffee(data, filter), term);
+  const product = visibleData[current - 1];
 
-    const content = main ? <>
-        <MainIntro/>
-        <AboutUs/>
-        <OurBest data={data.slice(0, 3)}/>
-    </> : null;
+  const content = main ? <>
+      <MainIntro/>
+      <AboutUs/>
+      <OurBest data={data.slice(0, 3)}/>
+  </> : null;
 
-    const products = catalog ? <>
-        <CatalogIntro/>
-        <CatalogInfo title='none' image={catalogImage}/>
-        <CatalogSearch 
-          filters={<CatalogFilters filter={filter} onFilter={this.onFilter}/>}
-          panel={<CatalogSearchPanel onUpdateSearch={this.onUpdateSearch}/>}/>
-        <CatalogList data={visibleData} onProduct={this.onProduct}/>
-    </> : null;
+  const products = catalog ? <>
+      <CatalogIntro/>
+      <CatalogInfo title='none' image={catalogImage}/>
+      <CatalogSearch 
+        filters={<CatalogFilters filter={filter} onFilter={onFilter}/>}
+        panel={<CatalogSearchPanel onUpdateSearch={onUpdateSearch}/>}/>
+      <CatalogList data={visibleData} onProduct={onProduct}/>
+  </> : null;
 
-    const pleas = pleasure ? <>
-        <PleasureIntro/>
-        <CatalogInfo title='block' image={pleasureImage}/>
-        <CatalogList data={visibleData} onProduct={this.onProduct}/>
-    </> : null;
+  const pleas = pleasure ? <>
+      <PleasureIntro/>
+      <CatalogInfo title='block' image={pleasureImage}/>
+      <CatalogList data={visibleData} onProduct={onProduct}/>
+  </> : null;
 
-    const productPage = showProduct ? <>
-        <CatalogIntro/>
-        <CatalogProduct data={product}/>
-    </>  : null;
+  const productPage = showProduct ? <>
+      <CatalogIntro/>
+      <CatalogProduct data={product}/>
+  </>  : null;
 
-    return (
-      <div className="App">
-        <AppHeader onMain={this.onMain} onCatalog={this.onCatalog} onPleasure={this.onPleasure}/>
-        {content}
-        {products}
-        {pleas}
-        {productPage}
-        <AppFooter onMain={this.onMain} onCatalog={this.onCatalog} onPleasure={this.onPleasure}/>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <AppHeader onMain={onMain} onCatalog={onCatalog} onPleasure={onPleasure}/>
+      {content}
+      {products}
+      {pleas}
+      {productPage}
+      <AppFooter onMain={onMain} onCatalog={onCatalog} onPleasure={onPleasure}/>
+    </div>
+  );
 }
 
 export default App;
