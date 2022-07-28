@@ -1,20 +1,20 @@
+import { Link } from "react-router-dom";
 import './catalogList.scss';
 
 const CatalogList = ({data, onProduct}) => {
-
     const elements = data.map(item => {
         const {id, country, title, price, img} = item;
         return (
-            <a 
+            <Link 
                 key={id}
-                href="#"
+                to="/coffee-shop/product"
                 onClick={() => onProduct(id)}
                 className="catalog-list__item">
                 <img src={img} alt="" className="catalog-list__img" />
                 <div className="catalog-list__title">{title}</div>
                 <div className="catalog-list__country">{country}</div>
                 <div className="catalog-list__price">{price}</div>
-            </a>
+            </Link>
         );
     })
 
