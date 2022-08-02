@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import AppFooter from "../appFooter/AppFooter";
 import AppHeader from "../appHeader/AppHeader";
-import { MainPage, CatalogPage, PleasurePage } from "../pages";
 
 import bestOne from '../../resources/img/ourBest/1.svg';
 import bestTwo from '../../resources/img/ourBest/2.svg';
 import bestThree from '../../resources/img/ourBest/3.svg';
-import ProductPage from "../pages/ProductPage";
+
+const MainPage = lazy(() => import('../pages/MainPage'));
+const CatalogPage = lazy(() => import('../pages/CatalogPage'));
+const PleasurePage = lazy(() => import('../pages/PleasurePage'));
+const ProductPage = lazy(() => import('../pages/ProductPage'));
 
 const App = () => {
   const goods = [
@@ -30,14 +33,16 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+       <Suspense>
         <AppHeader/>
-        <Routes>
-          <Route path="/coffee-shop" element={<MainPage data={data}/>}/>
-          <Route path="/coffee-shop/catalog" element={<CatalogPage data={data} onProduct={onProduct}/>}/>
-          <Route path="/coffee-shop/pleasure" element={<PleasurePage data={data} onProduct={onProduct}/>}/>
-          <Route path="/coffee-shop/product" element={<ProductPage data={data[current - 1]}/>}/>
-        </Routes>
-        <AppFooter/>
+          <Routes>
+            <Route path="/coffee-shop" element={<MainPage data={data}/>}/>
+            <Route path="/coffee-shop/catalog" element={<CatalogPage data={data} onProduct={onProduct}/>}/>
+            <Route path="/coffee-shop/pleasure" element={<PleasurePage data={data} onProduct={onProduct}/>}/>
+            <Route path="/coffee-shop/product" element={<ProductPage data={data[current - 1]}/>}/>
+          </Routes>
+          <AppFooter/>
+       </Suspense>
       </div>
     </Router>
   );

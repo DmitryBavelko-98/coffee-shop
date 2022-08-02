@@ -11,16 +11,14 @@ import CatalogList from "../catalogList/CatalogList";
 const CatalogPage = ({data, onProduct}) => {
     const [filter, setFilter] = useState('All');
     const [term, setTerm] = useState('');
-    
+
     function searchCoffee (items, term) {
         if (term.length === 0) {
             return items;
         }
 
-        return items.filter(item => {
-            return item.title.toLowerCase().includes(term);
-        })
-    }
+        return items.filter(item => item.title.toLowerCase().includes(term));
+    };
 
     function onFilter(filter) {
         setFilter(filter)
@@ -39,7 +37,7 @@ const CatalogPage = ({data, onProduct}) => {
         }
     }
 
-    function onUpdateSearch (term) {
+    const onUpdateSearch = (term) => {
         setTerm(term)
     }
 

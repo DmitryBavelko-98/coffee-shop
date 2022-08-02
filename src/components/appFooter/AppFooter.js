@@ -1,21 +1,22 @@
+import { Link } from "react-router-dom";
 import './appFooter.scss';
 
 import logo from "../../resources/img/appFooter/Logo.svg";
 import img from "../../resources/img/aboutUs/about-logo.svg";
 
-const AppFooter = ({onMain, onCatalog, onPleasure}) => {
+const AppFooter = () => {
     return (
         <footer className="footer">
             <div className="container">
                 <ul className='footer__content'>
                     <li className="footer__item">
-                        <a onClick={onMain} href="#" className="header__logo"><img src={logo} alt="logo"/></a>
+                        <Link to="/coffee-shop" className="header__logo"><img src={logo} alt="logo"/></Link>
                     </li>
                     <li className="footer__item">
-                        <a onClick={onCatalog} href="#">Our coffee</a>
+                        <Link to="/coffee-shop/catalog">Our coffee</Link>
                     </li>
                     <li className="footer__item">
-                        <a onClick={onPleasure} href="#">For your pleasure</a>
+                        <Link to="/coffee-shop/pleasure">For your pleasure</Link>
                     </li>
                 </ul>
                 <img src={img} alt="" className="footer__img" />
