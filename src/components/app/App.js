@@ -1,8 +1,9 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useContext, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import AppFooter from "../appFooter/AppFooter";
 import AppHeader from "../appHeader/AppHeader";
+import {dataContext, productContext} from "../context";
 
 import bestOne from '../../resources/img/ourBest/1.svg';
 import bestTwo from '../../resources/img/ourBest/2.svg';
@@ -33,16 +34,20 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-       <Suspense>
-        <AppHeader/>
-          <Routes>
-            <Route path="/coffee-shop" element={<MainPage data={data}/>}/>
-            <Route path="/coffee-shop/catalog" element={<CatalogPage data={data} onProduct={onProduct}/>}/>
-            <Route path="/coffee-shop/pleasure" element={<PleasurePage data={data} onProduct={onProduct}/>}/>
-            <Route path="/coffee-shop/product" element={<ProductPage data={data[current - 1]}/>}/>
-          </Routes>
-          <AppFooter/>
-       </Suspense>
+        <dataContext.Provider value={data}>
+          <productContext.Provider value={current - 1}>
+            <Suspense>
+            <AppHeader/>
+              <Routes>
+                <Route path="/coffee-shop" element={<MainPage/>}/>
+                <Route path="/coffee-shop/catalog" element={<CatalogPage onProduct={onProduct}/>}/>
+                <Route path="/coffee-shop/pleasure" element={<PleasurePage onProduct={onProduct}/>}/>
+                <Route path="/coffee-shop/product" element={<ProductPage/>}/>
+              </Routes>
+              <AppFooter/>
+            </Suspense>
+          </productContext.Provider>
+        </dataContext.Provider>
       </div>
     </Router>
   );

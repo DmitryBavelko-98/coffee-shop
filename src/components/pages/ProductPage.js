@@ -1,11 +1,11 @@
 import CatalogIntro from "../catalogIntro/CatalogIntro";
 import CatalogProduct from "../catalogProduct/CatalogProduct";
 
-const ProductPage = ({data}) => {
+const ProductPage = () => {
     return(
         <>
             <CatalogIntro/>
-            <CatalogProduct data={data}/>
+            <CatalogProduct/>
         </>
     );
 }

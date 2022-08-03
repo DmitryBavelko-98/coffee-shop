@@ -1,14 +1,14 @@
-
 import MainIntro from "../mainIntro/MainIntro";
 import OurBest from "../ourBest/OurBest";
 import AboutUs from "../aboutUs/AboutUs";
 
-const MainPage = ({data}) => {
+const MainPage = () => {
+
     return (
         <>
             <MainIntro/>
             <AboutUs/>
-            <OurBest data={data.slice(0, 3)}/>
+            <OurBest/>
         </>
     )
 }

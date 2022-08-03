@@ -1,8 +1,14 @@
+import { useContext } from "react";
+import {productContext} from "../context";
+
 import './catalogProduct.scss';
 import product from '../../resources/img/catalogProduct/product-img.svg'
 
-const CatalogProduct = ({data}) => {
-    const {country, price} = data;
+const CatalogProduct = () => {
+
+    const context = useContext(productContext);
+
+    const {country, price} = context;
     return (
         <section className="catalog-product">
             <div className="container">

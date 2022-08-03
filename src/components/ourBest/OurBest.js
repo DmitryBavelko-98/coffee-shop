@@ -1,9 +1,12 @@
-
+import { useContext } from "react"; 
+import {dataContext} from "../context";
 import './ourBest.scss';
 
-const OurBest = ({data}) => {
+const OurBest = (data) => {
 
-    const items = data.map(item => {
+    const context = useContext(dataContext);
+
+    const items = context.slice(0, 3).map(item => {
         const {id, title, price, img} = item;
         return (
             <a key={id} href="#" className="best__item item-best">

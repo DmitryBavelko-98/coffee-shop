@@ -1,8 +1,13 @@
+import { useContext } from "react";
+import {dataContext} from "../context";
 import { Link } from "react-router-dom";
+
 import './catalogList.scss';
 
-const CatalogList = ({data, onProduct}) => {
-    const elements = data.map(item => {
+const CatalogList = ({onProduct}) => {
+    const context = useContext(dataContext);
+
+    const elements = context.map(item => {
         const {id, country, title, price, img} = item;
         return (
             <Link 

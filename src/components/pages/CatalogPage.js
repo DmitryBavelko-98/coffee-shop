@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import {dataContext} from "../context";
 import CatalogSearch from "../catalogSearch/CatalogSearch";
 import CatalogSearchPanel from "../catalogSearchPanel/CatalogSearchPanel";
 import catalogImage from "../../resources/img/catalogInfo/info-1.jpg"
@@ -8,7 +8,12 @@ import CatalogInfo from "../catalogInfo/CatalogInfo";
 import CatalogIntro from "../catalogIntro/CatalogIntro";
 import CatalogList from "../catalogList/CatalogList";
 
-const CatalogPage = ({data, onProduct}) => {
+const {Provider} = dataContext;
+
+const CatalogPage = ({onProduct}) => {
+
+    const context = useContext(dataContext);
+
     const [filter, setFilter] = useState('All');
     const [term, setTerm] = useState('');
 
@@ -22,7 +27,7 @@ const CatalogPage = ({data, onProduct}) => {
 
     function onFilter(filter) {
         setFilter(filter)
-      }
+    }
     
     function filterCoffee(items, filter) {
         switch (filter) {
@@ -41,17 +46,17 @@ const CatalogPage = ({data, onProduct}) => {
         setTerm(term)
     }
 
-    const visibleData = searchCoffee(filterCoffee(data, filter), term);
+    const visibleData = searchCoffee(filterCoffee(context, filter), term);
 
     return (
-        <>  
+        <Provider value={visibleData}>  
             <CatalogIntro/>
             <CatalogInfo title='none' image={catalogImage}/>
             <CatalogSearch 
                 filters={<CatalogFilters filter={filter} onFilter={onFilter}/>}
                 panel={<CatalogSearchPanel onUpdateSearch={onUpdateSearch}/>}/>
-            <CatalogList data={visibleData} onProduct={onProduct}/>
-        </>
+            <CatalogList onProduct={onProduct}/>
+        </Provider>
     );
 }
 
