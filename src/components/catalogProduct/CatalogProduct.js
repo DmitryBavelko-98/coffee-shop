@@ -9,6 +9,7 @@ const CatalogProduct = () => {
     const context = useContext(productContext);
 
     const {country, price} = context;
+    console.log(context)
     return (
         <section className="catalog-product">
             <div className="container">

@@ -35,7 +35,7 @@ const App = () => {
     <Router>
       <div className="App">
         <dataContext.Provider value={data}>
-          <productContext.Provider value={current - 1}>
+          <productContext.Provider value={data[current - 1]}>
             <Suspense>
             <AppHeader/>
               <Routes>
